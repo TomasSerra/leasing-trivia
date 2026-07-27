@@ -1,0 +1,382 @@
+[
+  {
+    "id": 1,
+    "prompt": "¿Qué es el leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Una herramienta financiera para usar un bien pagando un canon, con opción de compra al finalizar el contrato."
+      },
+      {
+        "id": "b",
+        "text": "Un préstamo personal sin relación con bienes específicos."
+      },
+      {
+        "id": "c",
+        "text": "Una compra directa del bien en un solo pago."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 2,
+    "prompt": "En una operación de leasing, ¿quién es el Dador?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Quien usa el bien y paga el canon mensual."
+      },
+      {
+        "id": "b",
+        "text": "El dueño del bien, que financia la operación."
+      },
+      {
+        "id": "c",
+        "text": "El proveedor que fabrica el bien."
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": 3,
+    "prompt": "En una operación de leasing, ¿quién es el Tomador?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Quien tiene el uso y goce del bien y cuenta con una opción de compra."
+      },
+      {
+        "id": "b",
+        "text": "Quien vende el bien al contado."
+      },
+      {
+        "id": "c",
+        "text": "Quien garantiza personalmente la operación."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 4,
+    "prompt": "¿Qué paga el Tomador durante el contrato de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Un canon pactado por el uso del bien."
+      },
+      {
+        "id": "b",
+        "text": "Una multa mensual por no comprar el bien."
+      },
+      {
+        "id": "c",
+        "text": "Únicamente los impuestos del proveedor."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 5,
+    "prompt": "¿Qué opción tiene el Tomador al finalizar el contrato?",
+    "options": [
+      {
+        "id": "a",
+        "text": "La opción de comprar el bien por un precio determinado."
+      },
+      {
+        "id": "b",
+        "text": "La obligación de devolver siempre el bien sin posibilidad de compra."
+      },
+      {
+        "id": "c",
+        "text": "La obligación de vender el bien a un tercero."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 6,
+    "prompt": "¿Cuál es una ventaja financiera del leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Permite financiar el 100% del valor del bien objeto del contrato."
+      },
+      {
+        "id": "b",
+        "text": "Exige pagar el 100% del bien antes de recibirlo."
+      },
+      {
+        "id": "c",
+        "text": "Solo permite financiar una parte menor del bien."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 7,
+    "prompt": "¿Qué beneficio tiene el leasing respecto al capital de trabajo?",
+    "options": [
+      {
+        "id": "a",
+        "text": "No inmoviliza capital de trabajo."
+      },
+      {
+        "id": "b",
+        "text": "Obliga a inmovilizar capital de trabajo durante todo el contrato."
+      },
+      {
+        "id": "c",
+        "text": "Solo se puede usar si la empresa no tiene capital de trabajo."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 8,
+    "prompt": "¿Cuándo realiza el Tomador el primer desembolso o canon?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Después de que el proveedor entrega el bien."
+      },
+      {
+        "id": "b",
+        "text": "Antes de elegir el bien."
+      },
+      {
+        "id": "c",
+        "text": "Al momento de solicitar una cotización, aunque el bien no exista."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 9,
+    "prompt": "¿Qué tipos de beneficios aporta el sistema de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Financieros, impositivos y operativos."
+      },
+      {
+        "id": "b",
+        "text": "Únicamente comerciales y publicitarios."
+      },
+      {
+        "id": "c",
+        "text": "Solo beneficios contables, sin impacto financiero."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 10,
+    "prompt": "¿Qué tipo de bienes pueden ser objeto de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Bienes muebles, bienes inmuebles e intangibles."
+      },
+      {
+        "id": "b",
+        "text": "Solo automóviles particulares."
+      },
+      {
+        "id": "c",
+        "text": "Solo inmuebles urbanos nuevos."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 11,
+    "prompt": "¿Cuál de estos ejemplos puede ser objeto de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Maquinaria industrial."
+      },
+      {
+        "id": "b",
+        "text": "Sueldos del personal."
+      },
+      {
+        "id": "c",
+        "text": "Gastos de publicidad sin relación con un bien."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 12,
+    "prompt": "¿Cuál de estos bienes intangibles puede ser objeto de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Software."
+      },
+      {
+        "id": "b",
+        "text": "Dinero en efectivo."
+      },
+      {
+        "id": "c",
+        "text": "Servicios de limpieza mensual."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 13,
+    "prompt": "¿Qué característica tiene el leasing financiero?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Predomina la intención de adquirir el bien y la opción de compra suele ser baja."
+      },
+      {
+        "id": "b",
+        "text": "Siempre se devuelve el bien y nunca existe opción de compra."
+      },
+      {
+        "id": "c",
+        "text": "Solo se aplica a bienes sin valor económico."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 14,
+    "prompt": "¿Qué característica tiene el leasing operativo?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Suele tener cánones más bajos y una opción de compra más alta."
+      },
+      {
+        "id": "b",
+        "text": "Siempre tiene cánones más altos y opción de compra simbólica."
+      },
+      {
+        "id": "c",
+        "text": "No permite devolver el bien al finalizar el contrato."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 15,
+    "prompt": "¿Qué ventaja aporta el leasing operativo frente a la obsolescencia tecnológica?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Ayuda a proteger al Tomador, ya que la devolución y renovación del bien es una posibilidad cierta."
+      },
+      {
+        "id": "b",
+        "text": "Obliga al Tomador a quedarse con tecnología obsoleta."
+      },
+      {
+        "id": "c",
+        "text": "Impide renovar el bien durante toda la vida de la empresa."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 16,
+    "prompt": "¿Qué sucede con los costos complementarios en una operación de leasing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pueden financiarse, por ejemplo gastos de importación, traslados, instalación o puesta en marcha."
+      },
+      {
+        "id": "b",
+        "text": "Nunca pueden incluirse dentro del contrato."
+      },
+      {
+        "id": "c",
+        "text": "Solo pueden pagarse en efectivo y por fuera de la operación."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 17,
+    "prompt": "¿Cómo se relacionan los plazos de financiación del leasing con el bien?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pueden ser más largos que los tradicionales porque se relacionan con la vida útil del bien."
+      },
+      {
+        "id": "b",
+        "text": "Siempre son de menos de 30 días."
+      },
+      {
+        "id": "c",
+        "text": "No tienen ninguna relación con el tipo de bien financiado."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 18,
+    "prompt": "¿Qué beneficio impositivo se menciona sobre el canon?",
+    "options": [
+      {
+        "id": "a",
+        "text": "El importe del canon es deducible del Impuesto a las Ganancias."
+      },
+      {
+        "id": "b",
+        "text": "El canon se considera una donación no deducible."
+      },
+      {
+        "id": "c",
+        "text": "El canon solo puede deducirse si el bien ya fue comprado al contado."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 19,
+    "prompt": "¿Cuál es uno de los objetivos de la Asociación Leasing Argentina?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Generar conciencia sobre el aporte del leasing como herramienta financiera para la evolución del sector productivo."
+      },
+      {
+        "id": "b",
+        "text": "Vender bienes usados directamente al consumidor final."
+      },
+      {
+        "id": "c",
+        "text": "Reemplazar a todos los bancos del sistema financiero."
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": 20,
+    "prompt": "¿Desde qué año está constituida la Asociación Leasing Argentina?",
+    "options": [
+      {
+        "id": "a",
+        "text": "1998."
+      },
+      {
+        "id": "b",
+        "text": "2008."
+      },
+      {
+        "id": "c",
+        "text": "2018."
+      }
+    ],
+    "correctOptionId": "a"
+  }
+]

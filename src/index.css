@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+/* ── Lato, auto-hosteada ──────────────────────────────────────────────────
+   Se sirve desde /public/fonts para que la TV funcione sin red. */
+@font-face {
+  font-family: 'Lato';
+  src: url('/fonts/lato-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('/fonts/lato-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('/fonts/lato-900.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Tokens de marca ──────────────────────────────────────────────────────
+   Todo color de la UI sale de acá. Los literales son los hexes de Leasing
+   Argentina (isotipo + CSS del sitio). Los derivados se eligen sobre el mismo
+   matiz y se anota el ratio de contraste medido (WCAG) al lado.
+   Verde/rojo de feedback: aprobados por el cliente, elegidos para armonizar
+   con el teal de marca y ambos ≥5:1 con texto blanco. */
+@theme {
+  --font-sans: 'Lato', ui-sans-serif, system-ui, sans-serif;
+
+  /* Marca — literales */
+  --color-brand-deep: #005c9c;
+  --color-brand-mid: #6197c0;
+  --color-brand-light: #98c9ed;
+  --color-brand-pale: #c9e3f5;
+  --color-brand-cyan: #049bc2;
+  --color-brand-sky: #5bcaf4;
+  --color-brand-teal: #00b9bf;
+  --color-brand-slate: #504f51;
+
+  /* Derivados sobre matices de marca */
+  --color-surface: #f4f8fc; /* fondo del mundo claro */
+  --color-ink: #0b2f4a; /* texto principal — 12.95:1 sobre surface */
+  --color-ink-muted: #504f51; /* texto secundario — 7.63:1 sobre surface */
+  --color-teal-deep: #00787e; /* drench de victoria — 5.27:1 con blanco */
+
+  /* Feedback */
+  --color-correct: #167c43; /* 5.25:1 con blanco */
+  --color-incorrect: #b23227; /* 6.22:1 con blanco */
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────*/
+@layer base {
+  :root {
+    /* La UI entera escala con el viewport para verse igual en cualquier
+       resolución de TV. Se acota por vh y por vw: a 1080×1920 da 24px; si la
+       ventana no es exactamente 9:16, no se desborda. Todo lo demás es rem. */
+    font-size: min(1.25vh, 2.22vw);
+  }
+
+  html,
+  body {
+    height: 100%;
+    touch-action: pan-x pan-y;
+    overscroll-behavior: none;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Kiosco: sin selección, sin callout de long-press, sin highlight al tocar,
+     sin arrastrar imágenes. La TV es solo-lectura al tacto. */
+  body,
+  body * {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+}
+
+/* ── Animaciones ─────────────────────────────────────────────────────────*/
+@keyframes world-wipe {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes content-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes soft-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes attract-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+@keyframes tile-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.97);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── Fallback de viewport para WebViews viejos sin dvh (Android TV) ────────
+   Doble declaración: el navegador viejo se queda con vh e ignora dvh por
+   inválido; el moderno usa dvh. En kiosco no hay chrome dinámico, 100vh==100dvh. */
+.h-dvh {
+  height: 100vh;
+  height: 100dvh;
+}
+.min-h-dvh {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ── Movimiento reducido ─────────────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
