@@ -13,9 +13,8 @@ interface TimerRailProps {
  * al final. Se consume de derecha a izquierda animando `transform` (no `width`).
  * En los últimos URGENCY_MS pasa a rojo.
  *
- * Los segundos se dibujan dos veces, una en cada tinta, y la copia clara se
- * recorta a la zona rellena con `clip-path`. Así el número siempre contrasta,
- * tanto cuando el riel está lleno como cuando ya se vació por detrás.
+ * Los segundos van siempre en blanco, con sombra para sostener contraste tanto
+ * sobre el riel lleno como sobre el fondo ya vacío.
  */
 export function TimerRail({ fraction, remainingMs }: TimerRailProps) {
   const urgent = remainingMs <= URGENCY_MS;
@@ -41,18 +40,12 @@ export function TimerRail({ fraction, remainingMs }: TimerRailProps) {
         />
       </div>
 
-      {/* Sobre el riel ya vacío. */}
       <span
         aria-hidden="true"
-        className={cn(numberPosition, urgent ? 'text-incorrect' : 'text-brand-deep')}
-      >
-        {label}
-      </span>
-      {/* Misma cifra recortada a la parte todavía llena. */}
-      <span
-        aria-hidden="true"
-        className={cn(numberPosition, 'text-white transition-[clip-path] duration-100 ease-linear')}
-        style={{ clipPath: `inset(0 ${(1 - fraction) * 100}% 0 0)` }}
+        className={cn(
+          numberPosition,
+          'text-white [text-shadow:0_0.12rem_0.35rem_rgba(0,47,74,0.55),0_0_0.08rem_rgba(0,47,74,0.75)]',
+        )}
       >
         {label}
       </span>

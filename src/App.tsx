@@ -48,7 +48,6 @@ function Game() {
         <ResultScreen
           outcome={state.outcome}
           answers={state.answers}
-          onPlayAgain={startGame}
           onHome={actions.reset}
         />
       )}

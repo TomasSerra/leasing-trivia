@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import Confetti from 'react-confetti';
 import { cn } from '@/lib/cn';
 import type { AnsweredQuestion, GameOutcome } from '@/domain/types';
 import { countCorrect } from '@/domain/quiz';
@@ -7,7 +9,6 @@ import { BrandField } from '@/components/kiosk/BrandField';
 interface ResultScreenProps {
   readonly outcome: GameOutcome;
   readonly answers: readonly AnsweredQuestion[];
-  readonly onPlayAgain: () => void;
   readonly onHome: () => void;
 }
 
@@ -17,21 +18,43 @@ const COPY: Record<GameOutcome, { title: string; subtitle: string }> = {
   'lost-timeout': { title: '¡Se acabó el tiempo!', subtitle: 'Hay que responder las tres antes de que termine.' },
 };
 
-const ILLUSTRATION: Record<GameOutcome, { src: string; alt: string }> = {
-  won: { src: '/images/cup.webp', alt: 'Copa de ganador' },
-  'lost-mistake': { src: '/images/bad.webp', alt: 'Resultado incorrecto' },
-  'lost-timeout': { src: '/images/clock.webp', alt: 'Reloj de tiempo agotado' },
-};
+const THANKS_COPY = { title: 'Gracias por participar', subtitle: 'Te esperamos para volver a intentarlo.' };
+const CONFETTI_COLORS = ['#005c9c', '#6197c0', '#98c9ed', '#c9e3f5', '#049bc2', '#5bcaf4', '#ffffff'];
+
+function useViewportSize() {
+  const [size, setSize] = useState(() => ({
+    width: typeof window === 'undefined' ? 0 : window.innerWidth,
+    height: typeof window === 'undefined' ? 0 : window.innerHeight,
+  }));
+
+  useEffect(() => {
+    const updateSize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  return size;
+}
+
+function illustrationFor(correct: number): { src: string; alt: string } | null {
+  if (correct === 3) return { src: '/images/cup.webp', alt: 'Copa de ganador' };
+  if (correct > 0) return { src: '/images/nervous.webp', alt: 'Resultado parcial' };
+  return null;
+}
 
 /**
  * Pantalla de resultado (mundo pleno). Drench de color según el desenlace, con
- * un wipe vertical al entrar. Cierra con una ilustración grande según el desenlace.
+ * un wipe vertical al entrar. Cierra con una ilustración según los aciertos.
  */
-export function ResultScreen({ outcome, answers, onPlayAgain, onHome }: ResultScreenProps) {
+export function ResultScreen({ outcome, answers, onHome }: ResultScreenProps) {
   const won = outcome === 'won';
   const correct = countCorrect(answers);
-  const { title, subtitle } = COPY[outcome];
-  const illustration = ILLUSTRATION[outcome];
+  const copy = correct === 0 ? THANKS_COPY : COPY[outcome];
+  const illustration = illustrationFor(correct);
+  const scoreLabel = correct === 0 ? '0 de 0 correctas' : `${correct} de ${answers.length} correctas`;
+  const { width, height } = useViewportSize();
 
   return (
     <div className="relative h-dvh w-full overflow-hidden">
@@ -43,46 +66,58 @@ export function ResultScreen({ outcome, answers, onPlayAgain, onHome }: ResultSc
         )}
       />
       <BrandField tone="white" />
+      {won && width > 0 && height > 0 && (
+        <Confetti
+          width={width}
+          height={height}
+          colors={CONFETTI_COLORS}
+          numberOfPieces={320}
+          recycle={false}
+          style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 20 }}
+        />
+      )}
 
       <div className="relative z-10 flex h-full flex-col items-center px-[3.2rem] py-[3.6rem] text-center [animation:content-rise_460ms_var(--ease-out-expo)_120ms_both]">
         <Iso tone="solid" className="h-[4.4rem] w-[4.4rem] text-white" label="Leasing Argentina" />
 
-        <div className="mt-[4vh] flex flex-col items-center gap-[1.2rem]">
+        <div
+          className={cn(
+            'flex flex-col items-center gap-[1.2rem]',
+            illustration ? 'mt-[4vh]' : 'my-auto',
+          )}
+        >
           <p className="text-[1.8rem] font-bold uppercase tracking-[0.1em] text-white/80">
-            {correct} de {answers.length} correctas
+            {scoreLabel}
           </p>
           <h1 className="text-balance text-[5.6rem] font-black leading-[0.95] text-white">
-            {title}
+            {copy.title}
           </h1>
-          <p className="max-w-[32ch] text-[2rem] font-normal leading-[1.3] text-white/85">
-            {subtitle}
-          </p>
+          {copy.subtitle && (
+            <p className="max-w-[32ch] text-[2rem] font-normal leading-[1.3] text-white/85">
+              {copy.subtitle}
+            </p>
+          )}
         </div>
 
-        <div className="flex min-h-0 flex-1 items-center justify-center py-[2.4rem]">
-          <img
-            src={illustration.src}
-            alt={illustration.alt}
-            draggable={false}
-            className="h-auto w-[min(44vw,24vh)] max-w-[20rem] object-contain drop-shadow-[0_1rem_2rem_rgba(0,0,0,0.14)]"
-          />
-        </div>
+        {illustration && (
+          <div className="flex min-h-0 flex-1 items-center justify-center py-[2.4rem]">
+            <img
+              src={illustration.src}
+              alt={illustration.alt}
+              draggable={false}
+              className="h-auto w-[min(44vw,24vh)] max-w-[20rem] object-contain drop-shadow-[0_1rem_2rem_rgba(0,0,0,0.14)]"
+            />
+          </div>
+        )}
 
-        <div className="flex w-full flex-col gap-[1.2rem]">
+        <div className="flex w-full flex-col">
           <button
             type="button"
-            onClick={onPlayAgain}
+            onClick={onHome}
             className={cn(
               'h-[8rem] w-full rounded-[1.4rem] bg-white text-[2.4rem] font-black transition-transform duration-200 ease-[var(--ease-out-quart)] active:scale-[0.98]',
               won ? 'text-teal-deep' : 'text-brand-deep',
             )}
-          >
-            Jugar de nuevo
-          </button>
-          <button
-            type="button"
-            onClick={onHome}
-            className="h-[6rem] w-full rounded-[1.2rem] border-2 border-white/45 text-[1.8rem] font-bold text-white transition-colors duration-200 hover:border-white active:border-white"
           >
             Volver al inicio
           </button>
