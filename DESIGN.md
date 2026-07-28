@@ -67,7 +67,7 @@ Una sola familia: **Lato** (la tipografía de marca), auto-hosteada en `/public/
 
 - Contenedor raíz `h-dvh` con fallback `vh`/`dvh` para WebViews viejos de Android TV.
 - Preguntas: enunciado arriba, opciones como fajas altas apiladas (`min-h-13vh`), pastilla de letra + texto. Sin grid; flex column.
-- Resultado: encabezado + repaso scrolleable de las 3 + botonera fija abajo.
+- Resultado: encabezado centrado + ilustración según desenlace + botonera fija abajo.
 - Riel de timer full-bleed en el tope de la pantalla de pregunta.
 
 ## Components
@@ -75,7 +75,6 @@ Una sola familia: **Lato** (la tipografía de marca), auto-hosteada en `/public/
 - **AnswerTile** — opción táctil. Estados: `idle`, `selected` (acuse ~140ms), `correct` (verde+✓), `incorrect` (rojo+✗), `reveal-correct` (borde verde+✓ cuando el jugador erró). No conoce la partida (ISP).
 - **TimerRail** — riel de tiempo de altura fija (2.6rem) con el contador siempre visible: el tiempo es la tensión del juego, no un detalle que aparece al final. Se consume por `transform: scaleX`; en los últimos 10s pasa a `incorrect`. Los segundos se dibujan dos veces (tinta oscura y blanca) y la copia blanca se recorta con `clip-path` a la zona rellena, así el número contrasta con el riel lleno y con el vacío.
 - **ProgressPips** — una marca por pregunta; las respondidas muestran verde/rojo, la actual se alarga.
-- **AnswerReview** — repaso didáctico sobre fondo de color; muestra la correcta cuando se erró.
 - **StatsButton / StatsDialog** — el disparador es una zona **invisible** de 14vh que cubre la esquina superior derecha del inicio: es para el operador del stand, no para el visitante, así que no ocupa lugar en la composición. Sigue siendo un `<button>` con nombre accesible y anillo de foco. El modal (Radix `Dialog`) muestra partidas por día (hora AR) + total, con estado vacío.
 - **AttractScreen / BrandField / Iso / Logo** — marca y kiosco (ver Marca, más abajo).
 

@@ -16,7 +16,7 @@ export function HomeScreen({ onStart }: HomeScreenProps) {
     <div className="relative flex h-dvh w-full flex-col overflow-hidden bg-surface">
       <BrandField />
 
-      <header className="relative z-10 flex items-start px-[3.2rem] pt-[3.2rem]">
+      <header className="relative z-10 flex justify-center px-[3.2rem] pt-[3.2rem]">
         <Logo className="h-[5.6rem]" />
       </header>
 
@@ -24,15 +24,15 @@ export function HomeScreen({ onStart }: HomeScreenProps) {
           la composición visible del inicio. */}
       <StatsDialog trigger={<StatsButton />} />
 
-      <main className="relative z-10 flex flex-1 flex-col items-start justify-center gap-[3.2rem] px-[3.2rem] pb-[6vh]">
-        <div className="flex flex-col gap-[1.6rem]">
+      <main className="relative z-10 flex flex-1 flex-col items-center justify-center gap-[3.2rem] px-[3.2rem] pb-[6vh] text-center">
+        <div className="flex flex-col items-center gap-[1.6rem]">
           <p className="text-[1.9rem] font-bold uppercase tracking-[0.08em] text-brand-cyan">
             Trivia
           </p>
-          <h1 className="text-balance text-[5.4rem] font-black leading-[0.98] tracking-[-0.03em] text-ink">
+          <h1 className="text-balance text-[5.4rem] font-black leading-[0.98] text-ink">
             ¿Cuánto sabés
             <br />
-            de leasing?
+            de <span className="text-brand-cyan">leasing</span>?
           </h1>
           <p className="max-w-[34ch] text-[2rem] font-normal leading-[1.35] text-ink-muted">
             {QUESTIONS_PER_GAME} preguntas para responder en {seconds} segundos. Acertá las tres y
