@@ -20,22 +20,47 @@ const COPY: Record<GameOutcome, { title: string; subtitle: string }> = {
 
 const THANKS_COPY = { title: 'Gracias por participar', subtitle: 'Te esperamos para volver a intentarlo.' };
 const CONFETTI_COLORS = ['#005c9c', '#6197c0', '#98c9ed', '#c9e3f5', '#049bc2', '#5bcaf4', '#ffffff'];
+const FULL_HD_VERTICAL_AREA = 1080 * 1920;
+const FULL_HD_VERTICAL_CONFETTI = 640;
+
+function readViewportSize() {
+  if (typeof window === 'undefined') return { width: 0, height: 0 };
+
+  const viewport = window.visualViewport;
+  return {
+    width: Math.round(viewport?.width ?? window.innerWidth),
+    height: Math.round(viewport?.height ?? window.innerHeight),
+  };
+}
 
 function useViewportSize() {
-  const [size, setSize] = useState(() => ({
-    width: typeof window === 'undefined' ? 0 : window.innerWidth,
-    height: typeof window === 'undefined' ? 0 : window.innerHeight,
-  }));
+  const [size, setSize] = useState(readViewportSize);
 
   useEffect(() => {
-    const updateSize = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    const updateSize = () => setSize(readViewportSize());
+    const viewport = window.visualViewport;
 
     updateSize();
     window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    window.addEventListener('orientationchange', updateSize);
+    viewport?.addEventListener('resize', updateSize);
+    viewport?.addEventListener('scroll', updateSize);
+
+    return () => {
+      window.removeEventListener('resize', updateSize);
+      window.removeEventListener('orientationchange', updateSize);
+      viewport?.removeEventListener('resize', updateSize);
+      viewport?.removeEventListener('scroll', updateSize);
+    };
   }, []);
 
   return size;
+}
+
+function confettiPiecesFor(width: number, height: number): number {
+  const area = width * height;
+  const scaled = Math.round((area / FULL_HD_VERTICAL_AREA) * FULL_HD_VERTICAL_CONFETTI);
+  return Math.min(720, Math.max(280, scaled));
 }
 
 function illustrationFor(correct: number): { src: string; alt: string } | null {
@@ -55,6 +80,7 @@ export function ResultScreen({ outcome, answers, onHome }: ResultScreenProps) {
   const illustration = illustrationFor(correct);
   const scoreLabel = correct === 0 ? '0 de 0 correctas' : `${correct} de ${answers.length} correctas`;
   const { width, height } = useViewportSize();
+  const confettiPieces = confettiPiecesFor(width, height);
 
   return (
     <div className="relative h-dvh w-full overflow-hidden">
@@ -71,9 +97,20 @@ export function ResultScreen({ outcome, answers, onHome }: ResultScreenProps) {
           width={width}
           height={height}
           colors={CONFETTI_COLORS}
-          numberOfPieces={320}
+          numberOfPieces={confettiPieces}
           recycle={false}
-          style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 20 }}
+          tweenDuration={1800}
+          initialVelocityY={{ min: 7, max: 16 }}
+          confettiSource={{ x: 0, y: -height * 0.1, w: width, h: height * 0.18 }}
+          aria-hidden="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            width,
+            height,
+            pointerEvents: 'none',
+            zIndex: 20,
+          }}
         />
       )}
 
